@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Feliz Cumple, Carboncito 💖</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <style>
+    :root{
+      --pink:#ff4da6;
+      --soft:#fff0f5;
+    }
+    /* Base */
+    *{box-sizing:border-box}
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Comic Sans MS', cursive;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    /* Fondo noche romántica animado */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0f2230 0%, #1b3450 40%, #2b5268 100%);
+      background-size: 400% 400%;
+      animation: gradient 20s ease infinite;
+      z-index: -3;
+    }
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Contenedor de burbujas */
+    .bubbles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+    }
+    .bubble {
+      position: absolute;
+      bottom: -120px;
+      border-radius: 50%;
+      box-shadow: 0 0 18px rgba(255,255,255,0.85);
+      animation: rise linear infinite;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,1), rgba(255,182,193,0.12));
+      border: 1px solid rgba(255,255,255,0.65);
+      opacity: 0.95;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(0.6); opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1); opacity: 0; }
+    }
+
+    /* Botón inicial */
+    #start-btn {
+      padding: 15px 30px;
+      font-size: 20px;
+      background: var(--pink);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+      z-index: 5;
+      box-shadow: 0 10px 30px rgba(255,77,166,0.25);
+    }
+    #start-btn:hover { transform: translateY(-3px); }
+
+    /* Modal (envolvente) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 50;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: var(--soft);
+      padding: 28px;
+      border-radius: 18px;
+      width: min(92vw, 720px);
+      max-height: 86vh;
+      overflow-y: auto;
+      text-align: left;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+      animation: fadeIn 350ms ease;
+    }
+    .modal-content h1 { color: var(--pink); margin:0 0 10px; text-align:center; }
+    .modal-content p { color:#333; font-size:16.5px; line-height:1.6; white-space:pre-line; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .btn {
+      display:inline-block;
+      margin-top: 14px;
+      padding: 10px 16px;
+      background: var(--pink);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .btn:hover { filter:brightness(.95); }
+
+    /* Círculos interactivos */
+    .circle {
+      position: absolute;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,#ff99cc,#ff6fa8);
+      display: flex;
+      justify-content:center;
+      align-items:center;
+      color:white;
+      font-weight:bold;
+      box-shadow: 0 8px 22px rgba(255,0,128,0.18);
+      cursor:pointer;
+      z-index: 20;
+      user-select:none;
+      transition: transform .18s;
+    }
+    .circle:hover { transform: scale(1.12); }
+
+    /* Mini modales */
+    .mini-modal {
+      display:none;
+      position: fixed;
+      z-index: 60;
+      left:50%; top:50%;
+      transform: translate(-50%,-50%);
+      width: min(88vw, 360px);
+      background: #fff8f4;
+      padding:18px;
+      border-radius:14px;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+      text-align:center;
+    }
+
+    /* Ajustes responsive */
+    @media (max-width:480px){
+      .circle{ width:70px; height:70px; font-size:13px; }
+      .modal-content p{ font-size:15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- burbujas -->
+  <div class="bubbles" id="bubbles"></div>
+
+  <button id="start-btn">💖 Haz clic para comenzar 💖</button>
+
+  <!-- Modal principal -->
+  <div id="mainModal" class="modal" aria-hidden="true">
+    <div class="modal-content" id="message">
+      <h1>Feliz Cumpleaños, querida Angie 🎀</h1>
+      <p>
+Carboncito, desde que llegaste a mi vida todo se volvió más cálido y especial.  
+Tu risa ilumina mis días, tu mirada me da paz, y tu corazón me enseña que el amor verdadero existe. 💕  
+
+Hoy celebro tu vida, celebro lo que eres y lo afortunado que soy de caminar a tu lado.  
+Eres mi refugio, mi aventura, mi alegría y mi inspiración. 🌹✨  
+
+Que este nuevo año traiga aún más razones para sonreír, porque yo estaré aquí,  
+queriéndote, cuidándote y admirándote. 💖
+      </p>
+      <div style="text-align:center;">
+        <button class="btn" onclick="showPoem()">📜 Leer Poema 📜</button>
+        <button class="btn" onclick="closeMain()">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- Poema -->
+    <div class="modal-content" id="poem" style="display:none;">
+      <h1>Para ti, Carboncito ✨</h1>
+      <p>
+Da igual la fecha que el calendario marcaba,  
+si era de noche o de día  
+da igual quién me acompañaba  
+o el lugar al que me dirigía.  
+
+Llegaste  
+
+y del techo florecieron piedades y futuros posibles,  
+y las estatuas pasearon lejos de sus parques,  
+y los misterios fueron anécdotas y los caminos toboganes,  
+y mis recuerdos se olvidaron hasta de ellos mismos.  
+
+Y el viento trajo certezas que hicieron enmudecer a maestros,  
+y los oros se rompieron como pan en miga,  
+y el verdor que pareció antaño resucitó a carcajadas,  
+y mis piernas fueron terremotos y mis manos manantiales.  
+
+Y de las nubes llovieron júbilos y vacaciones,  
+y los peces empezaron a hablar de su pasado,  
+y hasta el bosque se enteró de la noticia,  
+y mi corazón ganó todas las carreras.  
+
+Llegaste  
+
+y yo me convertí en el nieto de la luz. 🌟
+      </p>
+      <div style="text-align:center;">
+        <button class="btn" onclick="backToMessage()">⬅ Volver</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mini ventanas (6 frases únicas) -->
+  <div id="mini1" class="mini-modal"><p>🌌 En tu silencio encontré la melodía más sincera. 🌌</p><div style="text-align:center"><button class="btn" onclick="closeMini('mini1')">Cerrar</button></div></div>
+
+  <div id="mini2" class="mini-modal"><p>🔥 Eres esa chispa que convierte lo cotidiano en magia. 🔥</p><div style="text-align:center"><button class="btn" onclick="closeMini('mini2')">Cerrar</button></div></div>
+
+  <div id="mini3" class="mini-modal"><p>🌿 Tu forma de mirar calma tormentas que yo ni sabía que tenía. 🌿</p><div style="text-align:center"><button class="btn" onclick="closeMini('mini3')">Cerrar</button></div></div>
+
+  <div id="mini4" class="mini-modal"><p>🌙 Cada risa tuya es como una constelación nueva en mi cielo. 🌙</p><div style="text-align:center"><button class="btn" onclick="closeMini('mini4')">Cerrar</button></div></div>
+
+  <div id="mini5" class="mini-modal"><p>🍃 En tus gestos habita la calma que nunca busqué, pero siempre necesité. 🍃</p><div style="text-align:center"><button class="btn" onclick="closeMini('mini5')">Cerrar</button></div></div>
+
+  <div id="mini6" class="mini-modal"><p>✨ A tu lado, hasta el silencio se siente lleno de vida. ✨</p><div style="text-align:center"><button class="btn" onclick="closeMini('mini6')">Cerrar</button></div></div>
+
+  <!-- Música -->
+  <audio id="bg-music" preload="auto" loop>
+    <source src="tan-natural.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    let started = false;
+    let circlesCreated = false;
+    let bubblesCreated = false;
+
+    const startBtn = document.getElementById('start-btn');
+    const mainModal = document.getElementById('mainModal');
+    const bgMusic = document.getElementById('bg-music');
+    const messageDiv = document.getElementById('message');
+    const poemDiv = document.getElementById('poem');
+
+    // Crear círculos
+    function createCircles(){
+      if(circlesCreated) return;
+      const texts = [
+        "Cualidad ✨",
+        "Poema 💕",
+        "Amor 🌹",
+        "Sonrisa 😊",
+        "Recuerdo 💫",
+        "Destino 🌠"
+      ];
+      const minis = ["mini1","mini2","mini3","mini4","mini5","mini6"];
+      for(let i=0;i<texts.length;i++){
+        const circle = document.createElement('div');
+        circle.className = 'circle';
+        circle.innerText = texts[i];
+        const margin = 100;
+        const top = Math.random() * (window.innerHeight - margin) + 20;
+        const left = Math.random() * (window.innerWidth - margin) + 20;
+        circle.style.top = `${top}px`;
+        circle.style.left = `${left}px`;
+        circle.onclick = () => {
+          document.getElementById(minis[i]).style.display = 'block';
+        };
+        document.body.appendChild(circle);
+      }
+      circlesCreated = true;
+    }
+
+    // Crear burbujas
+    function createBubbles(count = 22){
+      if(bubblesCreated) return;
+      const container = document.getElementById('bubbles');
+      for(let i=0;i<count;i++){
+        const b = document.createElement('div');
+        b.className = 'bubble';
+        const size = Math.floor(Math.random()*36) + 10;
+        b.style.width = `${size}px`;
+        b.style.height = `${size}px`;
+        b.style.left = `${Math.random() * 95}vw`;
+        b.style.animationDuration = `${12 + Math.random()*14}s`;
+        b.style.opacity = 0.6 + Math.random()*0.4;
+        if(Math.random() < 0.28){
+          b.style.background = 'radial-gradient(circle at 30% 30%, rgba(255,255,255,1), rgba(255,182,193,0.18))';
+        } else {
+          b.style.background = 'radial-gradient(circle at 30% 30%, rgba(255,255,255,1), rgba(200,225,255,0.06))';
+        }
+        container.appendChild(b);
+      }
+      bubblesCreated = true;
+    }
+
+    // eventos del botón
+    startBtn.addEventListener('click', () => {
+      if(started) return;
+      started = true;
+      mainModal.style.display = 'flex';
+      startBtn.style.display = 'none';
+      bgMusic.currentTime = 0;
+      bgMusic.play().catch(()=>{});
+      createCircles();
+      createBubbles();
+    });
+
+    function closeMain(){ mainModal.style.display = 'none'; }
+    function closeMini(id){ document.getElementById(id).style.display = 'none'; }
+    function showPoem(){ messageDiv.style.display = 'none'; poemDiv.style.display = 'block'; }
+    function backToMessage(){ poemDiv.style.display = 'none'; messageDiv.style.display = 'block'; }
+  </script>
+</body>
+</html>
+
+
