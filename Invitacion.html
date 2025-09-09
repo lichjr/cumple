@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>🌹 Invitación Especial 🌹</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #2b1055, #7597de, #ff758c, #ff7eb3);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      font-family: 'Segoe Script', cursive;
+    }
+
+    @keyframes gradient {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 25px;
+      text-align: center;
+      width: 80%;
+      max-width: 400px;
+      box-shadow: 0 0 30px rgba(255, 100, 150, 0.6);
+      animation: fadeIn 1.2s ease;
+    }
+
+    .card h1 {
+      color: #e60073;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      font-size: 18px;
+      color: #333;
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    .card .footer {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #b30059;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>💖 Invitación Especial 💖</h1>
+    <p>Querida Angie (Carboncito),</p>
+    <p>Quiero invitarte a celebrar tu día de la manera más especial 💕.</p>
+    <p>📅 <strong>Mañana, en tu cumpleaños</strong></p>
+    <p>⏰ <strong>12:00 PM</strong></p>
+    <p>📍 <strong>Restaurante SalsaBor</strong></p>
+    <p class="footer">No faltes... besitos 😘</p>
+  </div>
+</body>
+</html>
